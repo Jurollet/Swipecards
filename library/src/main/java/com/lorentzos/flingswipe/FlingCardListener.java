@@ -167,7 +167,7 @@ public class FlingCardListener implements View.OnTouchListener {
                 frame.setX(aPosX);
                 frame.setY(aPosY);
                 frame.setRotation(rotation);
-                mFlingListener.onScroll(getScrollProgressPercentVertical(), getScrollProgressPercentHorizontal());
+                mFlingListener.onScroll(getScrollProgressPercentHorizontal(), getScrollProgressPercentVertical());
                 break;
 
             case MotionEvent.ACTION_CANCEL: {
@@ -180,7 +180,7 @@ public class FlingCardListener implements View.OnTouchListener {
         return true;
     }
 
-    private float getScrollProgressPercentVertical() {
+    private float getScrollProgressPercentHorizontal() {
         if (movedBeyondLeftBorder()) {
             return -1f;
         } else if (movedBeyondRightBorder()) {
@@ -191,7 +191,7 @@ public class FlingCardListener implements View.OnTouchListener {
         }
     }
 
-    private float getScrollProgressPercentHorizontal() {
+    private float getScrollProgressPercentVertical() {
         if (movedBeyondTopBorder()) {
             return -1f;
         } else if (movedBeyondBottomBorder()) {

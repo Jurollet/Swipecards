@@ -36,6 +36,12 @@ public class SwipeFlingAdapterView extends BaseFlingAdapterView {
     private FlingCardListener flingCardListener;
     private PointF mLastTouchPoint;
 
+    private boolean mWillSetCardOnTop = false;
+
+    public void setmWillSetCardOnTop(boolean mWillSetCardOnTop) {
+        this.mWillSetCardOnTop = mWillSetCardOnTop;
+    }
+
     public SwipeFlingAdapterView(Context context) {
         this(context, null);
     }
@@ -82,7 +88,7 @@ public class SwipeFlingAdapterView extends BaseFlingAdapterView {
 
     @Override
     public void requestLayout() {
-        if (!mInLayout) {
+        if (!mInLayout || mWillSetCardOnTop) {
             super.requestLayout();
         }
     }
@@ -102,7 +108,7 @@ public class SwipeFlingAdapterView extends BaseFlingAdapterView {
             removeAllViewsInLayout();
         } else {
             View topCard = getChildAt(LAST_OBJECT_IN_STACK);
-            if (mActiveCard != null && topCard != null && topCard == mActiveCard) {
+            if (!mWillSetCardOnTop && mActiveCard != null && topCard != null && topCard == mActiveCard) {
                 if (this.flingCardListener.isTouching()) {
                     PointF lastPoint = this.flingCardListener.getLastPoint();
                     if (this.mLastTouchPoint == null || !this.mLastTouchPoint.equals(lastPoint)) {
